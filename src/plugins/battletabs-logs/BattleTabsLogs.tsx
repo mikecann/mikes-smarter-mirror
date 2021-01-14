@@ -17,5 +17,10 @@ export const BattleTabsLogs: React.FC<Props> = ({}) => {
     return startLogging((txt) => setText((prev) => limitLines(prev + txt)), newline);
   }, []);
 
-  return <div style={{ fontSize: "0.8em" }} dangerouslySetInnerHTML={{ __html: text }}></div>;
+  return (
+    <div
+      style={{ fontSize: "0.8em", userSelect: "none" }}
+      dangerouslySetInnerHTML={{ __html: text }}
+    ></div>
+  );
 };

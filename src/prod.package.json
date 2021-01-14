@@ -1,0 +1,9 @@
+{
+  "name": "Mikes Smarter Mirror",
+  "description": "My NW.js Powered SmartMirror",
+  "version": "0.1.0",
+  "main": "index.html",
+  "window": {
+    "fullscreen": true
+  }
+}
