@@ -4,11 +4,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: {
     main: "./src/index.tsx",
   },
-  externals: ["fs", "child_process"],
+  target: "node-webkit",
   module: {
     rules: [
       {

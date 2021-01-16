@@ -30,12 +30,12 @@ const App = () => {
       <Vertical verticalAlign="bottom" style={{ height: "100%", overflow: "hidden", width: 1000 }}>
         <BattleTabsLogs />
       </Vertical>
+      <Stretch />
       <Vertical horizontalAlign="right" style={{ padding: 10 }}>
         <Clock />
         <Stretch />
         <Weather />
       </Vertical>
-      <Stretch />
     </Horizontal>
   );
 };

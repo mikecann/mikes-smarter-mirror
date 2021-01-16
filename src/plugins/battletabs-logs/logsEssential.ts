@@ -49,7 +49,7 @@ const _startLogging = (log: (text: string) => any, newline = "<br />") => {
 
   const logLine = (text: string) => {
     log(text + newline);
-    console.log(text);
+    //console.log(text);
   };
 
   const _log = (...args: any[]) => {
@@ -118,7 +118,7 @@ const restartRegularly = (fn: () => () => void) => {
     console.log(`restarting..`);
     if (die) die();
     start();
-  }, 1000 * 60 * 1); // 20 mins
+  }, 1000 * 60 * 20); // 20 mins
 
   start();
 };
