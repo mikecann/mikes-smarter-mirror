@@ -25,7 +25,7 @@ const colorit = (color: string) => (text: string) => `<span style="color: ${colo
 
 type ColorFn = (text: string) => string;
 
-const theme = {
+const solarizedTheme = {
   white: `#FDF6E3`,
   yellow: `#B58900`,
   red: `#DC322F`,
@@ -33,6 +33,17 @@ const theme = {
   cyan: `#2AA198`,
   green: `#859900`,
 };
+
+const mikesTheme = {
+  white: `#FDF6E3`,
+  yellow: `#B7B327`,
+  red: `#CC3333`,
+  blue: `#34478B`,
+  cyan: `#2C7898`,
+  green: `#187018`,
+};
+
+const theme = mikesTheme;
 
 export const startLogging = (log: (text: string) => any, newline = "<br />") =>
   restartRegularly(() => _startLogging(log, newline));

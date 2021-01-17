@@ -5,7 +5,7 @@ interface Props {}
 
 const newline = `<br/>`;
 
-const limitLines = (text: string, count = 130) => {
+const limitLines = (text: string, count = 100) => {
   const lines = text.split(newline);
   return lines.slice(lines.length - count).join(newline);
 };
@@ -19,7 +19,11 @@ export const BattleTabsLogs: React.FC<Props> = ({}) => {
 
   return (
     <div
-      style={{ fontSize: "0.8em", userSelect: "none" }}
+      style={{
+        fontSize: "0.8em",
+        userSelect: "none",
+        fontFamily: "Consolas",
+      }}
       dangerouslySetInnerHTML={{ __html: text }}
     ></div>
   );

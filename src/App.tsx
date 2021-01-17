@@ -4,6 +4,7 @@ import { Clock } from "./plugins/clock/Clock";
 import { Weather } from "./plugins/weather/Weather";
 import { cssRaw } from "typestyle";
 import { BattleTabsLogs } from "./plugins/battletabs-logs/BattleTabsLogs";
+import { MainView } from "./MainView";
 
 cssRaw(`
 html {
@@ -25,19 +26,7 @@ body {
 `);
 
 const App = () => {
-  return (
-    <Horizontal style={{ backgroundColor: "black", height: "100%", width: "100%" }}>
-      <Vertical verticalAlign="bottom" style={{ height: "100%", overflow: "hidden", width: 1000 }}>
-        <BattleTabsLogs />
-      </Vertical>
-      <Stretch />
-      <Vertical horizontalAlign="right" style={{ padding: 10 }}>
-        <Clock />
-        <Stretch />
-        <Weather />
-      </Vertical>
-    </Horizontal>
-  );
+  return <MainView />;
 };
 
 export default App;
