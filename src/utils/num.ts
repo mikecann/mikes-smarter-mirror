@@ -23,3 +23,7 @@ export function randomIntRange(min: number, max: number): number {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+export function randomOne<T>(items: T[]): T {
+  return items[Math.floor(Math.random() * items.length)];
+}

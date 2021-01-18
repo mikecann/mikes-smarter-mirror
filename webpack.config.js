@@ -23,7 +23,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"]
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.tsx?$/,
@@ -31,7 +31,10 @@ module.exports = {
         use: [
           isDevelopment && {
             loader: "babel-loader",
-            options: { plugins: ["react-refresh/babel"] },
+
+            options: {
+              plugins: ["@babel/plugin-proposal-optional-chaining", "react-refresh/babel"],
+            },
           },
           {
             loader: "ts-loader",

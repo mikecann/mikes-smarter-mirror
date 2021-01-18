@@ -3,6 +3,7 @@ import { Horizontal, Stretch, Vertical } from "gls/lib";
 import { Clock } from "./plugins/clock/Clock";
 import { Weather } from "./plugins/weather/Weather";
 import { BattleTabsLogs } from "./plugins/battletabs-logs/BattleTabsLogs";
+import { News } from "./plugins/news/News";
 
 interface Props {}
 
@@ -19,7 +20,9 @@ export const MainView: React.FC<Props> = ({}) => {
         <Weather />
       </Vertical>
       <Stretch />
-      <Vertical verticalAlign="bottom"></Vertical>
+      <Vertical verticalAlign="top" horizontalAlign="right" style={{ padding: 10 }}>
+        <News />
+      </Vertical>
     </Horizontal>
   );
 };

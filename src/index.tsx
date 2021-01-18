@@ -1,4 +1,4 @@
-require("dotenv").config();
+
 
 import * as React from "react";
 import { render } from "react-dom";
