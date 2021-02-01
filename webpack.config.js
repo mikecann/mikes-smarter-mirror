@@ -46,9 +46,14 @@ module.exports = {
   },
   plugins: [
     isDevelopment && new ReactRefreshPlugin(),
-    // new CopyPlugin({
-    //   patterns: [{ from: "assets", to: "." }],
-    // }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "src/plugins/xylophone/assets",
+          to: "plugins/xylophone/assets",
+        },
+      ],
+    }),
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: "./index.html",

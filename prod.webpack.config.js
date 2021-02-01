@@ -33,6 +33,14 @@ module.exports = {
     new CopyPlugin({
       patterns: [{ from: "src/prod.package.json", to: "package.json" }],
     }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "src/plugins/xylophone/assets",
+          to: "plugins/xylophone/assets",
+        },
+      ],
+    }),
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: "./index.html",
