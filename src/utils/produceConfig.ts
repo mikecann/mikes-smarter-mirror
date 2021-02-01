@@ -9,13 +9,13 @@ interface Options<T extends BaseConfig> {
 }
 
 export const produceConfig = <T extends BaseConfig>(base: T, options?: Options<T>): Readonly<T> => {
-  const getEnv = options?.getEnv ? options?.getEnv : () => process.env;
+  const getEnv = options && options.getEnv ? options.getEnv : () => process.env;
 
   const envVars = getEnv();
   const definedEnvKeys = Object.keys(envVars).filter((k) => base.hasOwnProperty(k));
   const baseKeys = Object.keys(base);
 
-  if (options?.requiredInEnv) {
+  if (options && options.requiredInEnv) {
     const baseKeysSet = new Set(baseKeys);
     const definedKeysSet = new Set(definedEnvKeys);
     const requiredKeys = new Set(

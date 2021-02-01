@@ -57,12 +57,12 @@ export const News: React.FC<Props> = ({}) => {
   const { description, source, title, urlToImage } = randomOne(articles);
 
   return (
-    <Vertical horizontalAlign="right" style={{ width: 800, textAlign: "right" }} spacing={10}>
-      <img src={urlToImage} style={{ width: 800, objectFit: "cover", height: 400 }} />
+    <Vertical horizontalAlign="right" style={{ width: 600, textAlign: "right" }} spacing={10}>
+      <img src={urlToImage} style={{ width: 600, objectFit: "cover", height: 300 }} />
       <div style={{ fontSize: "2em", color: `#ddd` }}>
         {source.name} - {title}
       </div>
-      <div style={{ color: `#bbb` }}>{description}</div>
+      {/* <div style={{ color: `#bbb` }}>{description}</div> */}
     </Vertical>
   );
 };

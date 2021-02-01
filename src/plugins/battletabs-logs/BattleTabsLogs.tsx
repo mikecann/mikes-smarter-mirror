@@ -23,6 +23,7 @@ export const BattleTabsLogs: React.FC<Props> = ({}) => {
         fontSize: "0.8em",
         userSelect: "none",
         fontFamily: "Consolas",
+        filter: `drop-shadow(2px 2px 4px #000000)`,
       }}
       dangerouslySetInnerHTML={{ __html: text }}
     ></div>
