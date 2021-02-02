@@ -23,7 +23,7 @@ export const MainView: React.FC<Props> = ({}) => {
         </Vertical>
         <Stretch />
         <Vertical verticalAlign="bottom" horizontalAlign="right" style={{ padding: 10 }}>
-          <Xylophone width={800} height={600} />
+          {/* <Xylophone width={800} height={600} /> */}
           <Stretch />
           <News />
         </Vertical>
