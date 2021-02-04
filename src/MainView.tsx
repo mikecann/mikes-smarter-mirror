@@ -31,7 +31,7 @@ export const MainView: React.FC<Props> = ({}) => {
           <Stretch />
           <News />
         </Vertical>
-        <DevTools />
+        {/* <DevTools /> */}
       </Horizontal>
     </div>
   );
