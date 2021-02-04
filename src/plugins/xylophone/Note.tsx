@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MotionDetectionEngine } from "./MotionDetectionEngine";
-import { Howl } from "howler";
+//import { Howl } from "howler";
 
 interface Props {
   index: number;
@@ -11,10 +11,10 @@ export const Note: React.FC<Props> = ({ index, engine }) => {
   const imgRef = React.useRef<HTMLImageElement>(null);
 
   React.useEffect(() => {
-    const sound = new Howl({
-      src: [`/plugins/xylophone/assets/sounds/note${index + 1}.ogg`],
-      onloaderror: (num, err) => console.error(`error loading note ${index}`, err),
-    });
+    // const sound = new Howl({
+    //   src: [`/plugins/xylophone/assets/sounds/note${index + 1}.ogg`],
+    //   onloaderror: (num, err) => console.error(`error loading note ${index}`, err),
+    // });
 
     let isReady = true;
 
@@ -22,7 +22,7 @@ export const Note: React.FC<Props> = ({ index, engine }) => {
       if (areaIndex != index) return;
       if (!isReady) return;
 
-      sound.play();
+      //sound.play();
       imgRef.current!.style.transition = "filter 0s ease";
       imgRef.current!.style.filter = "brightness(2)";
 
