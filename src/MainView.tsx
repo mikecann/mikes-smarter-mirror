@@ -5,6 +5,7 @@ import { Weather } from "./plugins/weather/Weather";
 import { BattleTabsLogs } from "./plugins/battletabs-logs/BattleTabsLogs";
 import { News } from "./plugins/news/News";
 import { Xylophone } from "./plugins/xylophone/Xylophone";
+import { DevTools } from "./plugins/devtools/DevTools";
 
 interface Props {}
 
@@ -27,6 +28,7 @@ export const MainView: React.FC<Props> = ({}) => {
           <Stretch />
           <News />
         </Vertical>
+        <DevTools />
       </Horizontal>
     </div>
   );
