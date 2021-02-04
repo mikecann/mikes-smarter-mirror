@@ -10,6 +10,7 @@ dotenv.config({
 export const config = produceConfig(
   {
     NEWS_API_KEY: ``,
+    XYLOPHONE_SIZE_RATIO: `1`,
   },
   { requiredInEnv: "all" }
 );

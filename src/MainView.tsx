@@ -6,8 +6,11 @@ import { BattleTabsLogs } from "./plugins/battletabs-logs/BattleTabsLogs";
 import { News } from "./plugins/news/News";
 import { Xylophone } from "./plugins/xylophone/Xylophone";
 import { DevTools } from "./plugins/devtools/DevTools";
+import { config } from "./config";
 
 interface Props {}
+
+const xylophoneSizeRatio = parseFloat(config.XYLOPHONE_SIZE_RATIO);
 
 export const MainView: React.FC<Props> = ({}) => {
   return (
@@ -24,7 +27,7 @@ export const MainView: React.FC<Props> = ({}) => {
         </Vertical>
         <Stretch />
         <Vertical verticalAlign="bottom" horizontalAlign="right" style={{ padding: 10 }}>
-          <Xylophone width={800} height={600} />
+          <Xylophone width={800 * xylophoneSizeRatio} height={600 * xylophoneSizeRatio} />
           <Stretch />
           <News />
         </Vertical>
