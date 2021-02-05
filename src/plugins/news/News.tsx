@@ -2,7 +2,7 @@ import { Content, Horizontal, Vertical } from "gls/lib";
 import * as React from "react";
 import { config } from "../../config";
 import { hoursToMs } from "../../utils/time";
-import { randomOne } from "../../utils/num";
+import { randomOne, wrap } from "../../utils/num";
 import { testArticle1 } from "./fixtures";
 import { useTick } from "../../utils/useTick";
 
@@ -32,7 +32,7 @@ const urls = [
 export const News: React.FC<Props> = ({}) => {
   const [articles, setArticles] = React.useState<Article[]>([testArticle1]);
 
-  useTick(10000);
+  const index = useTick(10000);
 
   React.useEffect(() => {
     const check = async () => {
@@ -54,13 +54,13 @@ export const News: React.FC<Props> = ({}) => {
 
   if (articles.length == 0) return null;
 
-  const { description, source, title, urlToImage } = randomOne(articles);
+  const { description, source, title, urlToImage } = articles[wrap(index, articles.length)];
 
   return (
     <Vertical horizontalAlign="right" style={{ width: 600, textAlign: "right" }} spacing={10}>
       <img src={urlToImage} style={{ width: 600, objectFit: "cover", height: 300 }} />
-      <div style={{ fontSize: "2em", color: `#ddd` }}>
-        {source.name} - {title}
+      <div style={{ fontSize: "2em", color: `#ddd`, maxLines: 4, minHeight: 180 }}>
+        <span style={{ color: "#aaa" }}>{source.name}</span> - <span>{title}</span>
       </div>
       {/* <div style={{ color: `#bbb` }}>{description}</div> */}
     </Vertical>

@@ -1,135 +1,63 @@
 import execa from "execa";
-import { Stream } from "stream";
 import kill from "tree-kill";
+import { restartRegularly, readAndEmitLines } from "./utils";
 
-function emitLines(stream: Stream) {
-  var backlog = "";
-  stream.on("data", function (data) {
-    backlog += data;
-    var n = backlog.indexOf("\n");
-    // got a \n? emit one or more 'line' events
-    while (~n) {
-      stream.emit("line", backlog.substring(0, n));
-      backlog = backlog.substring(n + 1);
-      n = backlog.indexOf("\n");
-    }
-  });
-  stream.on("end", function () {
-    if (backlog) {
-      stream.emit("line", backlog);
-    }
-  });
+export type OutputKind = `white` | `yellow` | `red` | `blue` | `cyan` | `green`;
+
+interface Options {
+  onLine: (line: string, kind: OutputKind) => any;
+  onDot: (kind: OutputKind) => any;
 }
 
-const colorit = (color: string) => (text: string) => `<span style="color: ${color}">${text}</span>`;
+export const startLogging = ({ onDot, onLine }: Options) =>
+  restartRegularly(() => {
+    const execution = execa("heroku", ["logs", "--tail", "-a", "battletabs"]);
+    const stream = execution.stdout!;
 
-type ColorFn = (text: string) => string;
+    let lastColor: OutputKind = `white`;
 
-const solarizedTheme = {
-  white: `#FDF6E3`,
-  yellow: `#B58900`,
-  red: `#DC322F`,
-  blue: `#268BD2`,
-  cyan: `#2AA198`,
-  green: `#859900`,
-};
+    stream.on("line", function (line: string): any {
+      const groups = line.split(" ");
 
-const mikesTheme = {
-  white: `#FDF6E3`,
-  yellow: `#B7B327`,
-  red: `#CC3333`,
-  blue: `#34478B`,
-  cyan: `#2C7898`,
-  green: `#187018`,
-};
+      if (line.includes("metrics-v2")) return onDot(`green`);
+      if (line.includes("heroku[router]")) return onDot(`cyan`);
 
-const theme = mikesTheme;
+      if (groups.length) {
+        const date = groups[0];
+        const dyno = groups[1].replace(`[39m`, ``).replace(`[22m`, ``);
+        const message = groups.slice(2).join(" ").replace(`[39m`, ``);
 
-export const startLogging = (log: (text: string) => any, newline = "<br />") =>
-  restartRegularly(() => _startLogging(log, newline));
+        let color: OutputKind = `white`;
 
-const _startLogging = (log: (text: string) => any, newline = "<br />") => {
-  const execution = execa("heroku", ["logs", "--tail", "-a", "battletabs"]);
-  const stream = execution.stdout!;
+        if (message.toLowerCase().includes("error")) color = `red`;
+        else if (message.startsWith("at")) color = lastColor;
+        else if (dyno.includes("web.")) color = `green`;
+        else if (dyno.includes("worker.")) color = `blue`;
+        else if (dyno.includes("heroku-redis")) color = `yellow`;
 
-  let skips = 0;
-  const skip = (color: ColorFn) => {
-    log(color("."));
-    skips++;
-  };
+        if (message.includes("[gameServer] executing")) return onDot(color);
+        if (message.includes("[gameServer] executed")) return onDot(color);
+        if (message.includes("[gameServer] client disconnected")) return onDot(color);
+        if (message.includes("[gameServer] client connected")) return onDot(color);
 
-  const logLine = (text: string) => {
-    log(text + newline);
-    //console.log(text);
-  };
+        if (dyno.includes("heroku[")) return onDot(`cyan`);
+        if (dyno.includes("heroku-redis")) return onDot(`yellow`);
 
-  const _log = (...args: any[]) => {
-    if (skips) {
-      log(newline);
-      skips = 0;
-    }
-    logLine(args.map((o) => o + "").join(" "));
-  };
+        lastColor = color;
 
-  let lastColor = colorit(theme.white);
-
-  stream.on("line", function (line: string): any {
-    const groups = line.split(" ");
-
-    if (line.includes("metrics-v2")) return skip(colorit(theme.green));
-    if (line.includes("heroku[router]")) return skip(colorit(theme.cyan));
-
-    if (groups.length) {
-      const date = groups[0];
-      const dyno = groups[1];
-      const message = groups.slice(2).join(" ");
-
-      let color = colorit(theme.white);
-
-      if (message.toLowerCase().includes("error")) color = colorit(theme.red);
-      else if (message.startsWith("at")) color = lastColor;
-      else if (dyno.includes("web.")) color = colorit(theme.green);
-      else if (dyno.includes("worker.")) color = colorit(theme.blue);
-      else if (dyno.includes("heroku-redis")) color = colorit(theme.yellow);
-
-      if (message.includes("[gameServer] executing")) return skip(color);
-      if (message.includes("[gameServer] executed")) return skip(color);
-      if (message.includes("[gameServer] client disconnected")) return skip(color);
-      if (message.includes("[gameServer] client connected")) return skip(color);
-
-      if (dyno.includes("heroku[")) return skip(colorit(theme.cyan));
-      if (dyno.includes("heroku-redis")) return skip(colorit(theme.yellow));
-
-      lastColor = color;
-
-      _log(color(dyno + " " + message));
-    } else {
-      logLine(groups.join(" "));
-
-      _log(colorit(theme.red)(line));
-    }
-  });
-
-  emitLines(stream);
-
-  return () => {
-    console.log(`killing..`);
-    kill(execution.pid, "SIGKILL", function (err) {
-      console.log(`killed`, err);
+        onLine(dyno + " " + message, color);
+      } else {
+        //logLine(groups.join(" "));
+        onLine(line, `red`);
+      }
     });
-  };
-};
 
-const restartRegularly = (fn: () => () => void) => {
-  let die: Function | null = null;
+    readAndEmitLines(stream);
 
-  const start = () => (die = fn());
-
-  setInterval(() => {
-    console.log(`restarting..`);
-    if (die) die();
-    start();
-  }, 1000 * 60 * 20); // 20 mins
-
-  start();
-};
+    return () => {
+      console.log(`killing..`);
+      kill(execution.pid, "SIGKILL", function (err) {
+        console.log(`killed`, err);
+      });
+    };
+  });

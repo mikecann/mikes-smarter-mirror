@@ -1,31 +1,85 @@
 import * as React from "react";
-import { startLogging } from "./logsEssential";
+import { startLogging, OutputKind } from "./logsEssential";
 
 interface Props {}
 
-const newline = `<br/>`;
-
-const limitLines = (text: string, count = 100) => {
-  const lines = text.split(newline);
-  return lines.slice(lines.length - count).join(newline);
+const solarizedTheme = {
+  white: `#FDF6E3`,
+  yellow: `#B58900`,
+  red: `#DC322F`,
+  blue: `#268BD2`,
+  cyan: `#2AA198`,
+  green: `#859900`,
 };
 
-export const BattleTabsLogs: React.FC<Props> = ({}) => {
-  const [text, setText] = React.useState(``);
+const mikesTheme = {
+  white: `#FDF6E3`,
+  yellow: `#B7B327`,
+  red: `#CC3333`,
+  blue: `#34478B`,
+  cyan: `#2C7898`,
+  green: `#187018`,
+};
 
-  React.useEffect(() => {
-    return startLogging((txt) => setText((prev) => limitLines(prev + txt)), newline);
-  }, []);
+const theme = mikesTheme;
+
+const limit = (outputs: Output[], count = 40) => {
+  let index = outputs.length - 1;
+  let lines = 0;
+  while (index > 0) {
+    if (outputs[index].endLine) lines++;
+    if (lines >= count) break;
+    index--;
+  }
+  return outputs.slice(index);
+};
+
+interface Output {
+  id: number;
+  text: string;
+  kind: OutputKind;
+  endLine: boolean;
+}
+
+let id = 0;
+
+export const BattleTabsLogs: React.FC<Props> = ({}) => {
+  const [outputs, setOutputs] = React.useState<Output[]>([]);
+
+  React.useEffect(
+    () =>
+      startLogging({
+        onDot: (kind) =>
+          setOutputs((prev) => limit([...prev, { id: id++, endLine: false, kind, text: `.` }])),
+        onLine: (line, kind) =>
+          setOutputs((prev) => limit([...prev, { id: id++, endLine: true, kind, text: line }])),
+      }),
+    []
+  );
+
+  const renderOutput = (output: Output) => {
+    if (output.endLine)
+      return (
+        <div style={{ color: theme[output.kind] }} key={output.id}>
+          {output.text}
+        </div>
+      );
+    return (
+      <span style={{ color: theme[output.kind] }} key={output.id}>
+        {output.text}
+      </span>
+    );
+  };
 
   return (
     <div
       style={{
         fontSize: "0.8em",
         userSelect: "none",
-        fontFamily: "Consolas",
-        filter: `drop-shadow(2px 2px 4px #000000)`,
+        fontFamily: "'Ubuntu Mono', monospace",
       }}
-      dangerouslySetInnerHTML={{ __html: text }}
-    ></div>
+    >
+      {outputs.map(renderOutput)}
+    </div>
   );
 };
