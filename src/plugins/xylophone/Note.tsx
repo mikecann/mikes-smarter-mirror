@@ -9,6 +9,7 @@ interface Props {
 
 export const Note: React.FC<Props> = ({ index, engine }) => {
   const imgRef = React.useRef<HTMLImageElement>(null);
+  const audioRef = React.useRef<HTMLAudioElement>(null);
 
   React.useEffect(() => {
     // const sound = new Howl({
@@ -16,13 +17,22 @@ export const Note: React.FC<Props> = ({ index, engine }) => {
     //   onloaderror: (num, err) => console.error(`error loading note ${index}`, err),
     // });
 
+    const playSound = () => {
+      const el = document.createElement("audio");
+      el.src = `/plugins/xylophone/assets/sounds/note${index + 1}.ogg`;
+      el.autoplay = true;
+      el.addEventListener("ended", () => el.remove());
+      document.body.append(el);
+    };
+
     let isReady = true;
 
     const dispose = engine.onMotion.on(({ areaIndex }) => {
       if (areaIndex != index) return;
       if (!isReady) return;
 
-      //sound.play();
+      playSound();
+
       imgRef.current!.style.transition = "filter 0s ease";
       imgRef.current!.style.filter = "brightness(2)";
 

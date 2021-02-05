@@ -7,7 +7,7 @@
     "dev:scripts": "webpack-dev-server --hot",
     "dev:nw": "nw dev",
     "dev": "concurrently -n dev,nw \"webpack-dev-server --hot\" \"nw dev\"",
-    "build": "webpack --config prod.webpack.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config prod.webpack.config.js",
     "prod": "yarn build && nw dist",
     "start": "nw dist"
   },
