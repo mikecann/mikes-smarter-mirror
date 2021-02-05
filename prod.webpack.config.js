@@ -20,9 +20,17 @@ module.exports = {
         include: path.join(__dirname, "src"),
         use: [
           {
-            loader: "ts-loader",
+            loader: "babel-loader",
+
+            options: {
+              plugins: ["@babel/plugin-proposal-optional-chaining"],
+            },
           },
-        ],
+          {
+            loader: "ts-loader",
+            options: { transpileOnly: true },
+          },
+        ].filter(Boolean),
       },
     ],
   },

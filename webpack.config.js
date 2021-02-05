@@ -29,7 +29,7 @@ module.exports = {
         test: /\.tsx?$/,
         include: path.join(__dirname, "src"),
         use: [
-          isDevelopment && {
+          {
             loader: "babel-loader",
 
             options: {
