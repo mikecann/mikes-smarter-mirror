@@ -23,16 +23,23 @@ const mikesTheme = {
 
 const theme = mikesTheme;
 
-const limit = (outputs: Output[], count = 40) => {
-  let index = outputs.length - 1;
-  let lines = 0;
-  while (index > 0) {
-    if (outputs[index].endLine) lines++;
-    if (lines >= count) break;
-    index--;
-  }
-  return outputs.slice(index);
+const limit = (element: HTMLDivElement, count = 100) => {
+  let index = element.childElementCount - 1;
+  // let lines = 0;
+
+  // while (index > 0) {
+  //   const child = element.childNodes[index];
+  //   if (child. == "div") lines++;
+  //   if (lines >= count) break;
+  //   index--;
+  // }
+
+  // console.log("🚀 ~ file: BattleTabsLogs.tsx ~ line 28 ~ limit ~ index", index);
+
+  //return outputs.slice(index);
 };
+
+const maxElements = 300;
 
 interface Output {
   id: number;
@@ -41,45 +48,48 @@ interface Output {
   endLine: boolean;
 }
 
-let id = 0;
+const getLineElement = (line: string, kind: OutputKind) => {
+  const div = document.createElement("div");
+  div.innerText = line;
+  div.style.color = theme[kind];
+  return div;
+};
+
+const getDotElement = (kind: OutputKind) => {
+  const div = document.createElement("span");
+  div.innerText = `.`;
+  div.style.color = theme[kind];
+  return div;
+};
 
 export const BattleTabsLogs: React.FC<Props> = ({}) => {
-  const [outputs, setOutputs] = React.useState<Output[]>([]);
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(
     () =>
       startLogging({
-        onDot: (kind) =>
-          setOutputs((prev) => limit([...prev, { id: id++, endLine: false, kind, text: `.` }])),
-        onLine: (line, kind) =>
-          setOutputs((prev) => limit([...prev, { id: id++, endLine: true, kind, text: line }])),
+        onDot: (kind) => {
+          containerRef.current!.appendChild(getDotElement(kind));
+          if (containerRef.current!.childElementCount >= maxElements)
+            containerRef.current!.firstChild?.remove();
+        },
+        onLine: (line, kind) => {
+          containerRef.current!.appendChild(getLineElement(line, kind));
+          if (containerRef.current!.childElementCount >= maxElements)
+            containerRef.current!.firstChild?.remove();
+        },
       }),
     []
   );
 
-  const renderOutput = (output: Output) => {
-    if (output.endLine)
-      return (
-        <div style={{ color: theme[output.kind] }} key={output.id}>
-          {output.text}
-        </div>
-      );
-    return (
-      <span style={{ color: theme[output.kind] }} key={output.id}>
-        {output.text}
-      </span>
-    );
-  };
-
   return (
     <div
+      ref={containerRef}
       style={{
         fontSize: "0.8em",
         userSelect: "none",
         fontFamily: "'Ubuntu Mono', monospace",
       }}
-    >
-      {outputs.map(renderOutput)}
-    </div>
+    ></div>
   );
 };
