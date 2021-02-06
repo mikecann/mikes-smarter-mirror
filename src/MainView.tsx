@@ -24,7 +24,7 @@ export const MainView: React.FC<Props> = ({}) => {
             <Clock />
           </div>
           <Stretch verticalAlign="bottom" style={{ overflow: "hidden", width: 800 }}>
-            {/* <BattleTabsLogs /> */}
+            <BattleTabsLogs />
           </Stretch>
           <Weather />
         </Vertical>
