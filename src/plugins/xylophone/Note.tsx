@@ -33,15 +33,19 @@ export const Note: React.FC<Props> = ({ index, engine }) => {
 
       playSound();
 
-      imgRef.current!.style.transition = "filter 0s ease";
-      imgRef.current!.style.filter = "brightness(2)";
+      if (imgRef.current) {
+        imgRef.current.style.transition = "filter 0s ease";
+        imgRef.current.style.filter = "brightness(2)";
+      }
 
       // Throttle it
       isReady = false;
       setTimeout(() => {
         isReady = true;
-        imgRef.current!.style.transition = "filter 0.2s ease";
-        imgRef.current!.style.filter = "brightness(1)";
+        if (imgRef.current) {
+          imgRef.current.style.transition = "filter 0.2s ease";
+          imgRef.current.style.filter = "brightness(1)";
+        }
       }, 400);
     });
 

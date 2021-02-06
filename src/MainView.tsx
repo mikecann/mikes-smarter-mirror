@@ -7,6 +7,7 @@ import { News } from "./plugins/news/News";
 import { Xylophone } from "./plugins/xylophone/Xylophone";
 import { DevTools } from "./plugins/devtools/DevTools";
 import { config } from "./config";
+import { SystemStats } from "./plugins/system-stats/SystemStats";
 
 interface Props {}
 
@@ -15,13 +16,15 @@ const xylophoneSizeRatio = parseFloat(config.XYLOPHONE_SIZE_RATIO);
 export const MainView: React.FC<Props> = ({}) => {
   return (
     <div style={{ height: "100%", width: "100%", backgroundColor: "black", position: "relative" }}>
-      <Horizontal style={{ position: "absolute", top: 0, left: 0, bottom: 0, right: 0, zIndex: 2 }}>
+      <Horizontal
+        style={{ position: "absolute", top: 20, left: 20, bottom: 20, right: 20, zIndex: 2 }}
+      >
         <Vertical horizontalAlign="left" style={{ padding: 10, position: "relative" }}>
           <div style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}>
             <Clock />
           </div>
           <Stretch verticalAlign="bottom" style={{ overflow: "hidden", width: 800 }}>
-            <BattleTabsLogs />
+            {/* <BattleTabsLogs /> */}
           </Stretch>
           <Weather />
         </Vertical>
@@ -32,6 +35,9 @@ export const MainView: React.FC<Props> = ({}) => {
           <News />
         </Vertical>
         {/* <DevTools /> */}
+        <div style={{ position: "absolute", top: 0, left: 500 }}>
+          <SystemStats />
+        </div>
       </Horizontal>
     </div>
   );

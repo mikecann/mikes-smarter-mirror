@@ -24,18 +24,15 @@ const mikesTheme = {
 const theme = mikesTheme;
 
 const limit = (element: HTMLDivElement, count = 100) => {
-  let index = element.childElementCount - 1;
+  //let index = element.childElementCount - 1;
   // let lines = 0;
-
   // while (index > 0) {
   //   const child = element.childNodes[index];
   //   if (child. == "div") lines++;
   //   if (lines >= count) break;
   //   index--;
   // }
-
   // console.log("🚀 ~ file: BattleTabsLogs.tsx ~ line 28 ~ limit ~ index", index);
-
   //return outputs.slice(index);
 };
 
@@ -69,11 +66,13 @@ export const BattleTabsLogs: React.FC<Props> = ({}) => {
     () =>
       startLogging({
         onDot: (kind) => {
+          if (!containerRef.current) return;
           containerRef.current!.appendChild(getDotElement(kind));
           if (containerRef.current!.childElementCount >= maxElements)
             containerRef.current!.firstChild?.remove();
         },
         onLine: (line, kind) => {
+          if (!containerRef.current) return;
           containerRef.current!.appendChild(getLineElement(line, kind));
           if (containerRef.current!.childElementCount >= maxElements)
             containerRef.current!.firstChild?.remove();
