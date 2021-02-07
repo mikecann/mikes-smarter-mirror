@@ -30,7 +30,7 @@ export const MainView: React.FC<Props> = ({}) => {
         </Vertical>
         <Stretch />
         <Vertical verticalAlign="bottom" horizontalAlign="right" style={{ padding: 10 }}>
-          <Xylophone width={800 * xylophoneSizeRatio} height={600 * xylophoneSizeRatio} />
+          {/* <Xylophone width={800 * xylophoneSizeRatio} height={600 * xylophoneSizeRatio} /> */}
           <Stretch />
           <News />
         </Vertical>
