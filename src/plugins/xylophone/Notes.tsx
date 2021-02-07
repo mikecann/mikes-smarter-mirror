@@ -19,8 +19,8 @@ export const Notes: React.FC<Props> = ({ engine, noteCount, width }) => {
       spacing={0}
     >
       {narray(noteCount).map((index) => (
-        <div style={{ width: widthPerNote }}>
-          <Note key={index} engine={engine} index={index} />
+        <div key={index} style={{ width: widthPerNote }}>
+          <Note engine={engine} index={index} />
         </div>
       ))}
     </Horizontal>

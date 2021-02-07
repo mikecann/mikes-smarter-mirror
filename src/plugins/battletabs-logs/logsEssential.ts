@@ -54,6 +54,10 @@ export const startLogging = ({ onDot, onLine }: Options) =>
 
     readAndEmitLines(stream);
 
+    execution.catch((e) => {
+      console.error(`error starting heroku cli`, e);
+    });
+
     return () => {
       console.log(`killing..`);
       kill(execution.pid, "SIGKILL", function (err) {
