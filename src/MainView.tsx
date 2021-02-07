@@ -4,8 +4,6 @@ import { Clock } from "./plugins/clock/Clock";
 import { Weather } from "./plugins/weather/Weather";
 import { BattleTabsLogs } from "./plugins/battletabs-logs/BattleTabsLogs";
 import { News } from "./plugins/news/News";
-import { Xylophone } from "./plugins/xylophone/Xylophone";
-import { DevTools } from "./plugins/devtools/DevTools";
 import { config } from "./config";
 import { SystemStats } from "./plugins/system-stats/SystemStats";
 
