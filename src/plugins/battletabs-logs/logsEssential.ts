@@ -52,11 +52,15 @@ export const startLogging = ({ onDot, onLine }: Options) =>
       }
     });
 
+    stream.on("error", (err) => {
+      console.error(`heroku logs stream error`, err);
+    });
+
     readAndEmitLines(stream);
 
-    // execution.catch((e) => {
-    //   console.error(`error starting heroku cli`, e);
-    // });
+    execution.catch((e) => {
+      console.error(`heroku logs execution error starting heroku cli`, e);
+    });
 
     return () => {
       console.log(`killing..`);
