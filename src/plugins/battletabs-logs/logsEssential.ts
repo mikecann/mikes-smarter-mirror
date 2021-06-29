@@ -39,6 +39,8 @@ export const startLogging = ({ onDot, onLine }: Options) =>
         if (message.includes("[gameServer] executed")) return onDot(color);
         if (message.includes("[gameServer] client disconnected")) return onDot(color);
         if (message.includes("[gameServer] client connected")) return onDot(color);
+        if (message.includes("[publishAppEvent]")) return onDot(color);
+        if (message.includes("[userEvents]")) return onDot(color);
 
         if (dyno.includes("heroku[")) return onDot(`cyan`);
         if (dyno.includes("heroku-redis")) return onDot(`yellow`);

@@ -25,7 +25,7 @@ interface ArticleSource {
 }
 
 const urls = [
-  `https://newsapi.org/v2/top-headlines?sources=abc-news-au,cnn,bbc-news&apiKey=${config.NEWS_API_KEY}ddd`,
+  `https://newsapi.org/v2/top-headlines?country=AU&apiKey=${config.NEWS_API_KEY}`,
   `https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=${config.NEWS_API_KEY}`,
 ];
 
@@ -60,7 +60,7 @@ export const News: React.FC<Props> = ({}) => {
     <Vertical horizontalAlign="right" style={{ width: 600, textAlign: "right" }} spacing={10}>
       <img src={urlToImage} style={{ width: 600, objectFit: "cover", height: 300 }} />
       <div style={{ fontSize: "2em", color: `#ddd`, maxLines: 4, minHeight: 180 }}>
-        <span style={{ color: "#aaa" }}>{source.name}</span> - <span>{title}</span>
+        <span>{title}</span>
       </div>
       {/* <div style={{ color: `#bbb` }}>{description}</div> */}
     </Vertical>

@@ -36,7 +36,7 @@ const limit = (element: HTMLDivElement, count = 100) => {
   //return outputs.slice(index);
 };
 
-const maxElements = 300;
+const maxElements = 500;
 
 interface Output {
   id: number;
