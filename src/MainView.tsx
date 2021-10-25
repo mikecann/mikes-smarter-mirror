@@ -6,6 +6,7 @@ import { BattleTabsLogs } from "./plugins/battletabs-logs/BattleTabsLogs";
 import { News } from "./plugins/news/News";
 import { config } from "./config";
 import { SystemStats } from "./plugins/system-stats/SystemStats";
+import { JoshieVids } from "./plugins/joshie-vids/JoshieVids";
 
 interface Props {}
 
@@ -28,6 +29,7 @@ export const MainView: React.FC<Props> = ({}) => {
         </Vertical>
         <Stretch />
         <Vertical verticalAlign="bottom" horizontalAlign="right" style={{ padding: 10 }}>
+          <JoshieVids />
           {/* <Xylophone width={800 * xylophoneSizeRatio} height={600 * xylophoneSizeRatio} /> */}
           <Stretch />
           <News />
