@@ -39,7 +39,7 @@ export const VidPlayer: React.FC<Props> = ({ remotePath, canPlay, onCached, onFi
   return (
     <div style={{ position: "relative", height: `60vh` }}>
       <video
-        src={vid.localPath}
+        src={"file:///" + vid.localPath}
         autoPlay
         height={`100%`}
         onEnded={() => {
