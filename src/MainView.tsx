@@ -28,9 +28,9 @@ export const MainView: React.FC<Props> = ({}) => {
           <Weather />
         </Vertical>
         <Stretch />
-        <Vertical verticalAlign="bottom" horizontalAlign="right" style={{ padding: 10 }}>
-          <JoshieVids />
+        <Vertical horizontalAlign="right" style={{ padding: 0 }} spacing={0}>
           {/* <Xylophone width={800 * xylophoneSizeRatio} height={600 * xylophoneSizeRatio} /> */}
+          <JoshieVids />
           <Stretch />
           <News />
         </Vertical>

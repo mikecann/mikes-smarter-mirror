@@ -37,14 +37,11 @@ export const VidPlayer: React.FC<Props> = ({ remotePath, canPlay, onCached, onFi
   if (!canPlay) return null;
 
   return (
-    <Vertical horizontalAlign="center" spacing={0}>
-      <div>
-        {vid.month} {vid.year}
-      </div>
+    <div style={{ position: "relative", height: `60vh` }}>
       <video
         src={vid.localPath}
-        height={400}
         autoPlay
+        height={`100%`}
         onEnded={() => {
           console.log(`VidPlayer played`, { remotePath });
           onFinished();
@@ -53,6 +50,18 @@ export const VidPlayer: React.FC<Props> = ({ remotePath, canPlay, onCached, onFi
           });
         }}
       />
-    </Vertical>
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+          background: `rgba(0,0,0,0.5)`,
+          color: "white",
+          padding: 10,
+        }}
+      >
+        {vid.month} {vid.year}
+      </div>
+    </div>
   );
 };

@@ -25,7 +25,8 @@ interface ArticleSource {
 }
 
 const urls = [
-  `https://newsapi.org/v2/top-headlines?country=AU&apiKey=${config.NEWS_API_KEY}`,
+  `https://newsapi.org/v2/top-headlines?country=AU&category=general&apiKey=${config.NEWS_API_KEY}`,
+  `https://newsapi.org/v2/top-headlines?country=AU&category=technology&apiKey=${config.NEWS_API_KEY}`,
   `https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=${config.NEWS_API_KEY}`,
 ];
 
@@ -57,9 +58,24 @@ export const News: React.FC<Props> = ({}) => {
   const { description, source, title, urlToImage } = articles[wrap(index, articles.length)];
 
   return (
-    <Vertical horizontalAlign="right" style={{ width: 600, textAlign: "right" }} spacing={10}>
-      <img src={urlToImage} style={{ width: 600, objectFit: "cover", height: 300 }} />
-      <div style={{ fontSize: "2em", color: `#ddd`, maxLines: 4, minHeight: 180 }}>
+    <Vertical
+      horizontalAlign="right"
+      style={{ textAlign: "right", position: "relative" }}
+      spacing={10}
+    >
+      <img src={urlToImage} style={{ objectFit: "cover", height: `35vh` }} />
+      <div
+        style={{
+          fontSize: "1em",
+          color: `#fff`,
+          maxLines: 2,
+          padding: 5,
+          position: "absolute",
+          bottom: 0,
+          width: "100%",
+          backgroundColor: `rgba(0,0,0,0.5)`,
+        }}
+      >
         <span>{title}</span>
       </div>
       {/* <div style={{ color: `#bbb` }}>{description}</div> */}
