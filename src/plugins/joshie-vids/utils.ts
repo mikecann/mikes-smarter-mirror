@@ -70,3 +70,11 @@ export const emptyTmpDir = () => {
     }
   }
 };
+
+export const catchAndCarryOn = <T>(fn: () => T, name?: string) => {
+  try {
+    return fn();
+  } catch (e) {
+    console.error(`catchAndCarryOn '${name}'`, e);
+  }
+};

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useJoshieVids } from "./useJoshieVids";
 import { config } from "../../config";
-import { randomOne, getTmpDir, emptyTmpDir } from "./utils";
+import { randomOne, getTmpDir, emptyTmpDir, catchAndCarryOn } from "./utils";
 import { VidPlayer } from "./VidPlayer";
 import * as fs from "fs";
 

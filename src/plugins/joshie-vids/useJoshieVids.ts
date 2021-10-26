@@ -4,27 +4,14 @@ import { findRecursive, randomOne, createVid, Vid, replaceSlashes } from "./util
 const numToCache = 3;
 
 export const useJoshieVids = (rootDir: string) => {
-  //const [cached, setCached] = React.useState<Vid[]>([])
-
-  // const { onPlayed, remotePath } = useRemotePaths(rootDir);
-
-  // const [vid, setVid] = React.useState<Vid>(() => createVid(remotePath));
-
-  // React.useEffect(() => {
-  //   const vid = createVid(remotePath);
-  //   setVid(vid);
-
-  // }, [remotePath]);
-
-  // return {
-  //   vid,
-  //   onPlayed,
-  // };
-
-  const allPaths = React.useMemo(
-    () => findRecursive(rootDir).map((p) => replaceSlashes(p)),
-    [rootDir]
-  );
+  const allPaths = React.useMemo(() => {
+    try {
+      return findRecursive(rootDir).map((p) => replaceSlashes(p));
+    } catch (e) {
+      console.log(`failed trying to recusively find joshie vids`);
+      return [];
+    }
+  }, [rootDir]);
 
   return allPaths;
 };
