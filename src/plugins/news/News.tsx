@@ -71,9 +71,9 @@ export const News: React.FC<Props> = ({}) => {
           maxLines: 2,
           padding: 5,
           position: "absolute",
-          bottom: 0,
+          bottom: 40,
           width: "100%",
-          backgroundColor: `rgba(0,0,0,0.5)`,
+          backgroundColor: `rgba(0,0,0,0.7)`,
         }}
       >
         <span>{title}</span>

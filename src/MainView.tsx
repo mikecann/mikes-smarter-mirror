@@ -32,7 +32,7 @@ export const MainView: React.FC<Props> = ({}) => {
           {/* <Xylophone width={800 * xylophoneSizeRatio} height={600 * xylophoneSizeRatio} /> */}
           <JoshieVids />
           <Stretch />
-          {/* <News /> */}
+          <News />
         </Vertical>
         {/* <DevTools /> */}
         <div style={{ position: "absolute", top: 0, left: 500 }}>
