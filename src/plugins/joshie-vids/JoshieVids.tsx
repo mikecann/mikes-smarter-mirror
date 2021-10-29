@@ -2,13 +2,6 @@ import * as React from "react";
 import { randomOne, Vid, createVid } from "./utils";
 import { crawlForVideos } from "./crawlForVideos";
 
-const numToCache = 3;
-
-interface VidState {
-  remotePath: string;
-  readyToPlay: boolean;
-}
-
 interface Props {}
 
 export const JoshieVids: React.FC<Props> = ({}) => {
@@ -30,6 +23,16 @@ export const JoshieVids: React.FC<Props> = ({}) => {
     setCurrentVid(createVid(randomOne(videoUrls)));
   }, [videoUrls, currentVid]);
 
+  // After 3 mins just reset the video (it stalled)
+  React.useEffect(() => {
+    if (!currentVid) return;
+    const start = Date.now();
+    const id = setTimeout(() => setCurrentVid(undefined), 3 * 60 * 1000);
+    return () => {
+      clearTimeout(id);
+    };
+  }, [currentVid]);
+
   return (
     <div>
       {currentVid && (
@@ -40,6 +43,10 @@ export const JoshieVids: React.FC<Props> = ({}) => {
             height={`100%`}
             onEnded={() => {
               console.log(`VidPlayer played`, { currentVid });
+              setCurrentVid(undefined);
+            }}
+            onError={(error) => {
+              console.error(`VidPlayer error`, { currentVid, error });
               setCurrentVid(undefined);
             }}
           />
