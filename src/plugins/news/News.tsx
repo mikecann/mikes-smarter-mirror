@@ -66,10 +66,10 @@ export const News: React.FC<Props> = ({}) => {
       <img src={urlToImage} style={{ objectFit: "cover", height: `35vh` }} />
       <div
         style={{
-          fontSize: "1em",
+          fontSize: "2em",
           color: `#fff`,
           maxLines: 2,
-          padding: 5,
+          padding: 10,
           position: "absolute",
           bottom: 40,
           width: "100%",
