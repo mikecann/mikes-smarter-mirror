@@ -36,7 +36,7 @@ export const JoshieVids: React.FC<Props> = ({}) => {
   return (
     <div>
       {currentVid && (
-        <div style={{ position: "relative", height: `60vh` }}>
+        <div style={{ position: "relative", height: `95vh` }}>
           <video
             src={currentVid.url}
             autoPlay

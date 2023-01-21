@@ -7,6 +7,7 @@ import { News } from "./plugins/news/News";
 import { config } from "./config";
 import { SystemStats } from "./plugins/system-stats/SystemStats";
 import { JoshieVids } from "./plugins/joshie-vids/JoshieVids";
+import { Cycle } from "./plugins/cycle/Cycle";
 
 interface Props {}
 
@@ -25,14 +26,15 @@ export const MainView: React.FC<Props> = ({}) => {
           <Stretch verticalAlign="bottom" style={{ overflow: "hidden", width: 800 }}>
             <BattleTabsLogs />
           </Stretch>
-          <Weather />
+          <Cycle intervalMs={20000}>
+            <Weather />
+            <News />
+          </Cycle>
         </Vertical>
         <Stretch />
         <Vertical horizontalAlign="right" style={{ padding: 0 }} spacing={0}>
           {/* <Xylophone width={800 * xylophoneSizeRatio} height={600 * xylophoneSizeRatio} /> */}
           <JoshieVids />
-          <Stretch />
-          <News />
         </Vertical>
         {/* <DevTools /> */}
         <div style={{ position: "absolute", top: 0, left: 500 }}>

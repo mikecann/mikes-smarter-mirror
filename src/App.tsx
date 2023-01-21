@@ -1,9 +1,5 @@
 import React from "react";
-import { Horizontal, Stretch, Vertical } from "gls/lib";
-import { Clock } from "./plugins/clock/Clock";
-import { Weather } from "./plugins/weather/Weather";
 import { cssRaw } from "typestyle";
-import { BattleTabsLogs } from "./plugins/battletabs-logs/BattleTabsLogs";
 import { MainView } from "./MainView";
 
 cssRaw(`
