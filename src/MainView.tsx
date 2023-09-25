@@ -19,20 +19,21 @@ export const MainView: React.FC<Props> = ({}) => {
       <Horizontal
         style={{ position: "absolute", top: 20, left: 20, bottom: 20, right: 20, zIndex: 2 }}
       >
-        <Vertical horizontalAlign="left" style={{ padding: 10, position: "relative" }}>
+        <Vertical
+          horizontalAlign="left"
+          verticalAlign="bottom"
+          style={{ padding: 10, position: "relative", width: "50%" }}
+        >
           <div style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}>
             <Clock />
           </div>
-          <Stretch verticalAlign="bottom" style={{ overflow: "hidden", width: 800 }}>
+          {/* <Stretch verticalAlign="bottom" style={{ overflow: "hidden", width: 800 }}>
             <BattleTabsLogs />
-          </Stretch>
-          <Cycle intervalMs={20000}>
-            <Weather />
-            <News />
-          </Cycle>
+          </Stretch> */}
+          <Weather />
+          <News />
         </Vertical>
-        <Stretch />
-        <Vertical horizontalAlign="right" style={{ padding: 0 }} spacing={0}>
+        <Vertical horizontalAlign="right" style={{ padding: 0, flex: 1 }} spacing={0}>
           {/* <Xylophone width={800 * xylophoneSizeRatio} height={600 * xylophoneSizeRatio} /> */}
           <JoshieVids />
         </Vertical>

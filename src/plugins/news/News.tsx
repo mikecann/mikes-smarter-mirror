@@ -60,7 +60,7 @@ export const News: React.FC<Props> = ({}) => {
   return (
     <Vertical
       horizontalAlign="left"
-      style={{ textAlign: "left", position: "relative" }}
+      style={{ textAlign: "left", position: "relative", width: "100%" }}
       spacing={10}
     >
       <img src={urlToImage} style={{ objectFit: "cover", height: `35vh` }} />
