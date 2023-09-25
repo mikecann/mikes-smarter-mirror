@@ -1,7 +1,7 @@
 import * as path from "path";
 import { replaceSlashes } from "./utils";
 
-const rootUrl = `http://192.168.86.184:6113/Josh%20Photos/`;
+const rootUrl = `http://pinas:6113/Josh%20Photos/`;
 const linkRegex = /<a href="(.*)"/g;
 const ignoredLinks = ["https://github.com/http-party/http-server", "./../"];
 const maxDepth = 10;
