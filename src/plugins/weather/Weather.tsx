@@ -5,7 +5,7 @@ import { hoursToMs } from "../../utils/time";
 
 interface Props {}
 
-const url = `https://www.yr.no/en/content/2-2063523/meteogram.svg`;
+const url = `https://www.yr.no/en/content/2-2075265/meteogram.svg`;
 
 const fullSize = {
   w: 792,

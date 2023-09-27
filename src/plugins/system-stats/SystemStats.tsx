@@ -33,7 +33,7 @@ export const SystemStats: React.FC<Props> = ({}) => {
         <div style={{ width: 40 }}>CPUs:</div>
         <Grid spacing={2} style={{ width: 300 }}>
           {load?.cpus.map((cpu, i) => (
-            <ProgressBar width={50} progressPercent={Math.floor(cpu.load)} />
+            <ProgressBar key={i} width={50} progressPercent={Math.floor(cpu.load)} />
           ))}
         </Grid>
       </Horizontal>

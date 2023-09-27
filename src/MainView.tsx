@@ -8,6 +8,7 @@ import { config } from "./config";
 import { SystemStats } from "./plugins/system-stats/SystemStats";
 import { JoshieVids } from "./plugins/joshie-vids/JoshieVids";
 import { Cycle } from "./plugins/cycle/Cycle";
+import { Tides } from "./plugins/tides/Tides";
 
 interface Props {}
 
@@ -22,7 +23,12 @@ export const MainView: React.FC<Props> = ({}) => {
         <Vertical
           horizontalAlign="left"
           verticalAlign="bottom"
-          style={{ padding: 10, position: "relative", width: "50%" }}
+          style={{
+            padding: 10,
+            position: "relative",
+            width: "50%",
+            // backgroundColor: "rgba(255,0,0,0.2)",
+          }}
         >
           <div style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}>
             <Clock />
@@ -31,7 +37,10 @@ export const MainView: React.FC<Props> = ({}) => {
             <BattleTabsLogs />
           </Stretch> */}
           <Weather />
-          <News />
+          <Cycle>
+            <News />
+            <Tides />
+          </Cycle>
         </Vertical>
         <Vertical horizontalAlign="right" style={{ padding: 0, flex: 1 }} spacing={0}>
           {/* <Xylophone width={800 * xylophoneSizeRatio} height={600 * xylophoneSizeRatio} /> */}

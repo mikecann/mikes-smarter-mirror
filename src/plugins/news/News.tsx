@@ -33,7 +33,7 @@ const urls = [
 export const News: React.FC<Props> = ({}) => {
   const [articles, setArticles] = React.useState<Article[]>([testArticle1]);
 
-  const index = useTick(10000);
+  const index = useTick(15000);
 
   React.useEffect(() => {
     const check = async () => {
@@ -60,7 +60,14 @@ export const News: React.FC<Props> = ({}) => {
   return (
     <Vertical
       horizontalAlign="left"
-      style={{ textAlign: "left", position: "relative", width: "100%" }}
+      style={{
+        textAlign: "left",
+        position: "relative",
+        width: "100%",
+        minWidth: "100px",
+        minHeight: "100px",
+        border: `1px dashed rgba(255,255,255,0.2)`,
+      }}
       spacing={10}
     >
       <img src={urlToImage} style={{ objectFit: "cover", height: `35vh` }} />
