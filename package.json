@@ -7,9 +7,9 @@
     "dev:scripts": "webpack-dev-server --hot",
     "dev:nw": "nw dev",
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider concurrently -n dev,nw \"webpack-dev-server --hot\" \"nw dev\"",
-    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider webpack --config prod.webpack.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config prod.webpack.config.js",
     "prod": "yarn build && nw dist",
-    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider nw dist"
+    "start": "nw dist"
   },
   "author": "",
   "license": "ISC",
