@@ -28,7 +28,8 @@ const crawl = async (url: string) => {
     .map((s) => s.replace("http:/", "http://"));
 
   const follow = matches.filter((s) => s.endsWith("/"));
-  const videos = matches.filter((s) => s.endsWith(".m4v"));
+  const videos = matches.filter((s) => s.toLocaleLowerCase().endsWith(".m4v") ||  
+    s.toLocaleLowerCase().endsWith(".mp4") ||  s.toLocaleLowerCase().endsWith(".mov"));
 
   return {
     follow,
