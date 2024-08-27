@@ -13,7 +13,7 @@ export const Clock: React.FC<Props> = ({}) => {
   }, []);
 
   return (
-    <Vertical horizontalAlign="left" style={{ filter: `drop-shadow(2px 2px 4px #000000)` }}>
+    <Vertical horizontalAlign="left" style={{ filter: `drop-shadow(2px 2px 4px #000000)`, fontSize: "0.7em" }}>
       <Content style={{ fontSize: "2em", color: `#ddd`, marginLeft: 5 }}>
         {format(date, "iiii MMMM dd yyyy")}
       </Content>

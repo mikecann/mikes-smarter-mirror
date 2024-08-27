@@ -11,16 +11,17 @@ export const Tides: React.FC<Props> = ({}) => {
         minWidth: "100px",
         minHeight: "100px",
         border: `1px dashed rgba(255,255,255,0.2)`,
-        width: "100%",
         overflow: "hidden",
+        transform: "scale(0.8)",
+        transformOrigin: "top left",
+        width: "700px"
       }}
     >
       <img
         src="https://www.tide-forecast.com/system/charts-png/Busselton-Australia/tides.png"
         style={{
-          height: "420px",
           filter: "invert(100%) grayscale(100%)",
-          transform: "scale(1.6) translate(175px, 40px)",
+          transform: "translate(-0px, -70px)",
         }}
       />
     </div>

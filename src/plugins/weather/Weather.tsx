@@ -27,6 +27,8 @@ export const Weather: React.FC<Props> = ({}) => {
         height: fullSize.h - offset.h,
         overflow: "hidden",
         position: "relative",
+        transform: "scale(0.8)",
+        transformOrigin: "center left",
       }}
     >
       <img

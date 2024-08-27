@@ -18,8 +18,10 @@ export const crawlForVideos = async (url: string = rootUrl, depth = 0): Promise<
 };
 
 const crawl = async (url: string) => {
+  console.log(`crawling for videos..`)
   const response = await fetch(url);
   const html = await response.text();
+  console.log(`got HTML with ${html.length} length`)
   const matches = [...html.matchAll(linkRegex)]
     .map((m) => m[1])
     .filter((s) => !ignoredLinks.includes(s))
@@ -27,9 +29,11 @@ const crawl = async (url: string) => {
     .map(replaceSlashes)
     .map((s) => s.replace("http:/", "http://"));
 
+    console.log(`found ${matches.length} matches`)
+
   const follow = matches.filter((s) => s.endsWith("/"));
-  const videos = matches.filter((s) => s.toLocaleLowerCase().endsWith(".m4v") ||  
-    s.toLocaleLowerCase().endsWith(".mp4") ||  s.toLocaleLowerCase().endsWith(".mov"));
+  const videos = matches.filter((s) => s.toLowerCase().endsWith(".m4v") ||  
+    s.toLowerCase().endsWith(".mp4") ||  s.toLowerCase().endsWith(".mov"));
 
   return {
     follow,
