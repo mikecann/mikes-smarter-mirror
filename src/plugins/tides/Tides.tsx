@@ -14,7 +14,8 @@ export const Tides: React.FC<Props> = ({}) => {
         overflow: "hidden",
         transform: "scale(0.8)",
         transformOrigin: "top left",
-        width: "700px"
+        width: "700px",
+        height: "340px"
       }}
     >
       <img

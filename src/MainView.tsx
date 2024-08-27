@@ -33,19 +33,21 @@ export const MainView: React.FC<Props> = ({}) => {
 
           </div>
 
-          <div style={{ position: "absolute", bottom: 0, left: 0, minWidth: "400px" }}>
-            <Cycle>
-                        <Tides />
-                        <News /> 
-                                  
-                      </Cycle>
-          </div>
           
+          <div style={{ position: "absolute", bottom: 0, left: 0, minWidth: "400px" }}>
+              <Tides />
+              
+            {/* <Cycle> */}
+              {/* <News />  */}
+                        
+            {/* </Cycle> */}
+          </div>  
        
         {/* <DevTools /> */}
         <div style={{ position: "absolute", top: 0, left: 300 }}>
           <SystemStats />
         </div>
+
       </Horizontal>
      
     </div>

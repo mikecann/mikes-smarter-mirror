@@ -33,38 +33,36 @@ export const JoshieVids: React.FC<Props> = ({}) => {
     };
   }, [currentVid]);
 
+  if (!currentVid) return null;
+
   return (
-    <div>
-      {currentVid && (
-        <div>
-          <video
-            src={currentVid.url}
-            autoPlay
-            muted={true}
-            height={`100%`}
-            onEnded={() => {
-              console.log(`VidPlayer played`, { currentVid });
-              setCurrentVid(undefined);
-            }}
-            onError={(error) => {
-              console.error(`VidPlayer error`, { currentVid, error });
-              setCurrentVid(undefined);
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              bottom: 0,
-              right: 0,
-              background: `rgba(0,0,0,0.5)`,
-              color: "white",
-              padding: 10,
-            }}
-          >
-            {currentVid.month} {currentVid.year}
-          </div>
-        </div>
-      )}
+    <div style={{ position: "relative", height: "100%" }}>
+      <video
+        src={currentVid.url}
+        autoPlay
+        muted={true}
+        height={"100%"}
+        onEnded={() => {
+          console.log(`VidPlayer played`, { currentVid });
+          setCurrentVid(undefined);
+        }}
+        onError={(error) => {
+          console.error(`VidPlayer error`, { currentVid, error });
+          setCurrentVid(undefined);
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+          background: `rgba(0,0,0,0.5)`,
+          color: "white",
+          padding: 10,
+        }}
+      >
+        {currentVid.month} {currentVid.year}
+      </div>
     </div>
   );
 };
