@@ -1,7 +1,7 @@
-import { Vertical } from "gls/lib";
 import * as React from "react";
 import { useTick } from "../../utils/useTick";
 import { hoursToMs } from "../../utils/time";
+import {Vertical} from '../../components/Vertical';
 
 interface Props {}
 
@@ -21,7 +21,7 @@ export const Weather: React.FC<Props> = ({}) => {
   useTick(hoursToMs(2));
 
   return (
-    <Vertical
+        <Vertical    
       style={{
         width: fullSize.w - offset.w,
         height: fullSize.h - offset.h,
@@ -29,6 +29,7 @@ export const Weather: React.FC<Props> = ({}) => {
         position: "relative",
         transform: "scale(0.8)",
         transformOrigin: "center left",
+
       }}
     >
       <img

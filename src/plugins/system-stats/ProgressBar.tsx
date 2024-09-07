@@ -1,5 +1,5 @@
-import { Horizontal } from "gls/lib";
 import * as React from "react";
+import { Horizontal } from "../../components/Horizontal";
 
 interface Props {
   width: number;
@@ -11,15 +11,15 @@ const color = "#666";
 export const ProgressBar: React.FC<Props> = ({ width, progressPercent }) => {
   return (
     <div style={{ width, border: `1px solid ${color}`, padding: 1 }}>
-      <Horizontal
+          <Horizontal
         style={{
           width: width * (progressPercent / 100),
           backgroundColor: color,
           height: "100%",
           fontSize: "0.6rem",
+          alignItems: "center",
+          justifyContent: "center",
         }}
-        horizontalAlign="center"
-        verticalAlign="center"
       >
         {progressPercent}%
       </Horizontal>

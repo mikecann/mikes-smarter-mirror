@@ -1,4 +1,4 @@
-import execa from "execa";
+import {execa} from "execa";
 import kill from "tree-kill";
 import { restartRegularly, readAndEmitLines } from "./utils";
 
@@ -54,18 +54,19 @@ export const startLogging = ({ onDot, onLine }: Options) =>
       }
     });
 
-    stream.on("error", (err) => {
+    stream.on("error", (err: any) => {
       console.error(`heroku logs stream error`, err);
     });
 
     readAndEmitLines(stream);
 
-    execution.catch((e) => {
+    execution.catch((e: any) => {
       console.error(`heroku logs execution error starting heroku cli`, e);
     });
 
     return () => {
       console.log(`killing..`);
+      if (execution.pid)
       kill(execution.pid, "SIGKILL", function (err) {
         console.log(`killed`, err);
       });

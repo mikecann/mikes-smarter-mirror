@@ -1,10 +1,10 @@
-import { Content, Horizontal, Vertical } from "gls/lib";
 import * as React from "react";
 import { config } from "../../config";
 import { hoursToMs } from "../../utils/time";
 import { randomOne, wrap } from "../../utils/num";
 import { testArticle1 } from "./fixtures";
 import { useTick } from "../../utils/useTick";
+import { Vertical } from "../../components/Vertical";
 
 interface Props {}
 
@@ -59,7 +59,6 @@ export const News: React.FC<Props> = ({}) => {
 
   return (
     <Vertical
-      horizontalAlign="left"
       style={{
         textAlign: "left",
         position: "relative",
@@ -67,8 +66,9 @@ export const News: React.FC<Props> = ({}) => {
         minWidth: "100px",
         minHeight: "100px",
         border: `1px dashed rgba(255,255,255,0.2)`,
+        alignItems: "flex-start",
+        gap: "10px"
       }}
-      spacing={10}
     >
       <img src={urlToImage} style={{ objectFit: "cover", height: `35vh` }} />
       <div

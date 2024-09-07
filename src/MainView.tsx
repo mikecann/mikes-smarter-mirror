@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Horizontal, Stretch, Vertical } from "gls/lib";
 import { Clock } from "./plugins/clock/Clock";
 import { Weather } from "./plugins/weather/Weather";
 import { BattleTabsLogs } from "./plugins/battletabs-logs/BattleTabsLogs";
@@ -9,6 +8,7 @@ import { SystemStats } from "./plugins/system-stats/SystemStats";
 import { JoshieVids } from "./plugins/joshie-vids/JoshieVids";
 import { Cycle } from "./plugins/cycle/Cycle";
 import { Tides } from "./plugins/tides/Tides";
+import { Horizontal } from "./components/Horizontal";
 
 interface Props {}
 

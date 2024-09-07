@@ -1,6 +1,7 @@
 import { format } from "date-fns";
-import { Content, Horizontal, Vertical } from "gls/lib";
 import * as React from "react";
+import { Vertical } from "../../components/Vertical";
+import { Horizontal } from "../../components/Horizontal";
 
 interface Props {}
 
@@ -13,11 +14,11 @@ export const Clock: React.FC<Props> = ({}) => {
   }, []);
 
   return (
-    <Vertical horizontalAlign="left" style={{ filter: `drop-shadow(2px 2px 4px #000000)`, fontSize: "0.7em" }}>
-      <Content style={{ fontSize: "2em", color: `#ddd`, marginLeft: 5 }}>
+    <Vertical style={{ filter: `drop-shadow(2px 2px 4px #000000)`, fontSize: "0.7em", alignItems: "flex-start" }}>
+      <div style={{ fontSize: "2em", color: `#ddd`, marginLeft: 5 }}>
         {format(date, "iiii MMMM dd yyyy")}
-      </Content>
-      <Horizontal verticalAlign="top">
+      </div>
+      <Horizontal style={{ justifyContent: "flex-start" } } >
         <Vertical style={{ fontSize: "8em", lineHeight: "0.6em" }}>
           {format(date, "HH:mm")}
         </Vertical>
