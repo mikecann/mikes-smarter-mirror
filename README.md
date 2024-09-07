@@ -8,4 +8,6 @@ The version two of my smart mirror project.
 
 ## Notes to self
 
+Use NPM not yarn or bun
+
 If you get build errors or errors related to missing manifest make sure you run VSCode as administrator!
