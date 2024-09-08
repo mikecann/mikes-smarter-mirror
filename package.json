@@ -4,7 +4,7 @@
   "description": "A Neutralinojs React TypeScript Vite starter with Bun",
   "author": "Avaray",
   "scripts": {
-    "install": "cd web && bun install && cd .. && neu update",
+    "neu:update": "bunx @neutralinojs/neu update",
     "start": "bunx @neutralinojs/neu run"
   }
 }
