@@ -1,9 +1,9 @@
 {
-  "applicationId": "mikes-smarter-mirror",
+  "applicationId": "mikes.smarter.mirror",
   "cli": {
     "binaryName": "mikes-smarter-mirror",
-    "binaryVersion": "3.0.0",
-    "clientVersion": "3.0.0",
+    "binaryVersion": "5.2.0",
+    "clientVersion": "5.2.0",
     "distributionPath": "/dist/",
     "extensionsPath": "/extensions/",
     "frontendLibrary": {

@@ -1,7 +1,8 @@
 {
-  "name": "mikes-smarter-mirror",
-  "version": "3.0.0",
-  "description": "Mikes mirror but smarter",
+  "name": "neutralino-react-ts-vite-bun",
+  "version": "1.0.0",
+  "description": "A Neutralinojs React TypeScript Vite starter with Bun",
+  "author": "Avaray",
   "scripts": {
     "install": "cd web && bun install && cd .. && neu update",
     "start": "bunx @neutralinojs/neu run"
