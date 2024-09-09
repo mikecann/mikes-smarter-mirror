@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { app, window as W } from "@neutralinojs/lib";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import "./App.css";
+import { Box } from "./components/Box";
+import { Clock } from "./plugins/clock/Clock";
 
 const shutdownApp = () => app.exit();
 
@@ -19,22 +18,18 @@ export default function App() {
   }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-      <button onClick={shutdownApp}>Shutdown</button>
-    </>
+    <Box
+      style={{
+        position: "relative",
+        padding: "0px",
+        width: "100vw",
+        height: "100vh",
+        overflow: "hidden",
+      }}
+    >
+      <Box style={{ position: "absolute", top: "20px", left: "20px" }}>
+        <Clock />
+      </Box>
+    </Box>
   );
 }
