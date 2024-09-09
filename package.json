@@ -1,10 +1,33 @@
 {
   "name": "neutralino-react-ts-vite-bun",
   "version": "1.0.0",
-  "description": "A Neutralinojs React TypeScript Vite starter with Bun",
-  "author": "Avaray",
+  "description": "A smarter mirror",
+  "type": "module",
   "scripts": {
     "neu:update": "bunx @neutralinojs/neu update",
-    "start": "bunx @neutralinojs/neu run"
+    "start": "bunx @neutralinojs/neu run",
+    "dev": "bunx --bun vite --host",
+    "build": "tsc -b && bunx --bun vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "bunx --bun vite preview"
+  },
+  "dependencies": {
+    "@neutralinojs/lib": "^5.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.6",
+    "@types/node": "^20.14.11",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.16.1",
+    "@typescript-eslint/parser": "^7.16.1",
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "eslint": "^9.7.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.8",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4"
   }
 }

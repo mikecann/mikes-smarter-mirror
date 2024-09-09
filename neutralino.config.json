@@ -9,15 +9,15 @@
     "frontendLibrary": {
       "buildCommand": "bun run build",
       "devCommand": "bun run dev",
-      "devUrl": "http://localhost:4200",
+      "devUrl": "http://localhost:4373",
       "initCommand": "bun install",
-      "patchFile": "/web/index.html",
-      "projectPath": "/web/"
+      "patchFile": "/index.html",
+      "projectPath": "/"
     },
-    "resourcesPath": "/web/dist/"
+    "resourcesPath": "/dist/"
   },
   "defaultMode": "window",
-  "documentRoot": "/web/dist/",
+  "documentRoot": "/dist/",
   "enableNativeAPI": true,
   "enableServer": true,
   "logging": {
@@ -30,7 +30,7 @@
       "enableInspector": false,
       "exitProcessOnClose": false,
       "hidden": true,
-      "icon": "/web/public/icon.png",
+      "icon": "/public/icon.png",
       "maximize": false,
       "minHeight": 400,
       "minWidth": 700,
