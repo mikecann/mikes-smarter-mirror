@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { app, window as W } from "@neutralinojs/lib";
 import { Box } from "./components/Box";
 import { Clock } from "./plugins/clock/Clock";
+import { AutoUpdater } from "./plugins/autoUpdate/AutoUpdater";
 
 const shutdownApp = () => app.exit();
 
@@ -29,6 +30,9 @@ export default function App() {
     >
       <Box style={{ position: "absolute", top: "20px", left: "20px" }}>
         <Clock />
+      </Box>
+      <Box style={{ position: "absolute", top: "20px", right: "20px" }}>
+        <AutoUpdater />
       </Box>
     </Box>
   );
