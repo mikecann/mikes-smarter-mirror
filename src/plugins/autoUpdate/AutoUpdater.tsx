@@ -7,61 +7,51 @@ import { iife } from "../../utils/misc";
 interface Props {}
 
 export const AutoUpdater: React.FC<Props> = ({}) => {
-  const [isUpdating, setIsUpdating] = React.useState(false);
-  const [updateAvailable, setUpdateAvailable] = React.useState(false);
-
-  // Helper function to run git commands via Neutralino's process API
-  const runGitCommand = async (command: string) => {
-    try {
-      console.log("Executing git command:", command);
-      const result = await os.execCommand(command);
-      return result.stdOut;
-    } catch (error) {
-      console.error("Error executing git command", error);
-      return null;
-    }
-  };
+  const [isChecking, setIsChecking] = React.useState(false);
+  const [isUpdateAvailable, setIsUpdateAvailable] = React.useState(false);
 
   // Function to check if there is an update available in the git repo
   const checkForUpdates = async () => {
-    setIsUpdating(true);
+    setIsChecking(true);
+    console.log(`Checking for updates...`);
+
     // Fetch remote updates (without merging)
-    await runGitCommand("git fetch");
+    await os.execCommand("git fetch");
 
     // Compare local and remote branches
-    const localCommit = await runGitCommand("git rev-parse HEAD");
-    const remoteCommit = await runGitCommand("git rev-parse @{u}");
+    const localCommit = await os.execCommand("git rev-parse HEAD");
+    const remoteCommit = await os.execCommand("git rev-parse @{u}");
 
     const isUpdateAvailable = localCommit !== remoteCommit;
     console.log("checkForUpdates result:", { localCommit, remoteCommit, isUpdateAvailable });
-    setUpdateAvailable(isUpdateAvailable);
-    setIsUpdating(false);
-  };
-
-  // Function to pull the updates and restart the app
-  const pullAndRestart = async () => {
-    if (updateAvailable) {
-      setIsUpdating(true);
-      // Pull updates
-      await runGitCommand("git pull");
-      // Restart the app using Neutralino API
-      app.restartProcess();
-    }
+    setIsUpdateAvailable(isUpdateAvailable);
+    setIsChecking(false);
   };
 
   // UseEffect to periodically check for updates
   React.useEffect(() => {
-    const intervalId = setInterval(checkForUpdates, 60000); // Check every 60 seconds
-    checkForUpdates();
+    const intervalId = setInterval(
+      () => checkForUpdates().catch((e) => console.error("Error checking for updates", e)),
+      60000
+    ); // Check every 60 seconds
     return () => clearInterval(intervalId); // Cleanup on component unmount
   }, []);
+
+  React.useEffect(() => {
+    if (!isUpdateAvailable) return;
+
+    iife(async () => {
+      await os.execCommand("git pull");
+      app.restartProcess();
+    }).catch((e) => console.error("Error updating app", e));
+  }, [isUpdateAvailable]);
 
   return (
     <Box style={{ fontSize: "0.7em" }}>
       {iife(() => {
-        if (isUpdating) return <Box>Checking for updates...</Box>;
+        if (isChecking) return <Box>Checking for updates...</Box>;
 
-        if (updateAvailable) return <Box>Update available!</Box>;
+        if (isUpdateAvailable) return <Box>Update available! Restarting in 5 seconds..</Box>;
 
         return (
           <Box>

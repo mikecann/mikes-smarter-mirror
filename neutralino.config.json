@@ -37,6 +37,9 @@
       "resizable": true,
       "title": "Mikes Smarter Mirror",
       "useSavedState": false
+    },
+    "chrome": {
+      "args": "--disable-web-security"
     }
   },
   "nativeAllowList": ["app.*", "computer.*", "events.*", "filesystem.*", "os.*", "window.*"],
