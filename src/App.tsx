@@ -17,6 +17,7 @@ export default function App() {
       await W.show();
       if (import.meta.env.VITE_IS_PROD != "true") return;
       await W.setFullScreen();
+      document.documentElement.requestFullscreen();
     }).catch((e) => console.error(`Error in useEffect`, e));
   }, []);
 

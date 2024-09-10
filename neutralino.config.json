@@ -16,7 +16,7 @@
     },
     "resourcesPath": "/dist/"
   },
-  "defaultMode": "window",
+  "defaultMode": "chrome",
   "documentRoot": "/dist/",
   "enableNativeAPI": true,
   "enableServer": true,
@@ -29,7 +29,7 @@
       "center": true,
       "enableInspector": true,
       "exitProcessOnClose": false,
-      "hidden": true,
+      "hidden": false,
       "icon": "/public/icon.png",
       "maximize": false,
       "minHeight": 400,
@@ -37,9 +37,6 @@
       "resizable": true,
       "title": "Mikes Smarter Mirror",
       "useSavedState": false
-    },
-    "chrome": {
-      "args": "--disable-web-security"
     }
   },
   "nativeAllowList": ["app.*", "computer.*", "events.*", "filesystem.*", "os.*", "window.*"],
