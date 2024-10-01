@@ -13,7 +13,8 @@ function App(): JSX.Element {
           padding: '0px',
           width: '100vw',
           height: '100vh',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          cursor: window.electron.process.platform === 'win32' ? 'default' : 'none',
         }}
       >
         <Box style={{ position: 'absolute', top: '0px', right: '0px', height: '100%' }}>
