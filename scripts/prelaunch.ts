@@ -1,5 +1,10 @@
 import { $ } from 'bun'
 import { resolve } from 'path'
+import { exec } from 'child_process'
+import { promisify } from 'util'
+
+// Promisify exec to use async/await
+const execAsync = promisify(exec)
 
 // Get the project root directory relative to the current script
 const projectRoot = resolve(__dirname, '..')
@@ -50,14 +55,7 @@ const launchElectronApp = () => {
   const process = $`bun electron-vite preview . -- --fullscreen`.cwd(projectRoot)
   process
     .then(() => console.log(`[INFO] Electron app launched successfully.`))
-    .catch((err) => console.error(`[ERROR] Failed to launch Electron app: ${err.message}`))
-}
-
-// Function to stop the currently running Electron app
-const stopElectronApp = async () => {
-  console.log(`[INFO] Stopping the currently running Electron app...`)
-  await $`pkill -f electron`.cwd(projectRoot)
-  console.log(`[INFO] Electron app stopped successfully.`)
+    .catch((err) => console.error(`[ERROR] Electron app exited with error: ${err.message}`))
 }
 
 // Function to periodically check for updates and restart the app if needed
@@ -71,9 +69,16 @@ const startPeriodicUpdateCheck = async (interval: number) => {
       return
     }
 
-    // First kill the currently running app as the bun install might have issues if we dont
-    await stopElectronApp()
-    await pullGitAndInstallDependencies()
+    console.log(`[INFO] Looks like there is an update available!`)
+
+    if (process.platform === 'win32') {
+      console.log(`[INFO] This is windows, not going to do anything right now.`)
+      return
+    }
+
+    console.log(`[INFO] Rebooting..`)
+    await $`sudo reboot`.cwd(projectRoot).text()
+
     launchElectronApp() // Launch the app in the background
   }, interval)
 }
