@@ -1,5 +1,4 @@
 import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
 import { Box } from './components/Box'
 import { JoshieVids } from './plugins/joshie-vids/JoshieVids'
 import { Clock } from './plugins/clock/Clock'
@@ -10,15 +9,14 @@ function App(): JSX.Element {
 
   return (
     <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
+      {/* <div className="creator">Powered by electron-vite</div>
       <div className="text">
         Build an Electron app with <span className="react">React</span>
         &nbsp;and <span className="ts">TypeScript</span>
       </div>
       <p className="tip">
         Please try pressing <code>F12</code> to open the devTool
-      </p>
+      </p> */}
       <Box
         style={{
           position: 'relative',
@@ -29,7 +27,7 @@ function App(): JSX.Element {
         }}
       >
         <Box style={{ position: 'absolute', top: '0px', right: '0px', height: '100%' }}>
-          <JoshieVids />
+          {/* <JoshieVids /> */}
         </Box>
         <Box style={{ position: 'absolute', top: '20px', left: '20px' }}>
           <Clock />
