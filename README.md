@@ -1,34 +1,31 @@
-# electron-app
+# mikes-smarter-mirror
 
-An Electron application with React and TypeScript
+set `/etc/rc.local` to:
 
-## Recommended IDE Setup
-
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-
-## Project Setup
-
-### Install
-
-```bash
-$ npm install
 ```
+#!/bin/bash
 
-### Development
+# Print the date and time of startup (for debugging)
+echo "Startup initiated at $(date)" >> /home/pi/mirror.log
 
-```bash
-$ npm run dev
-```
+# Wait for 10 seconds to ensure everything is up and running
+sleep 10
 
-### Build
+# Set the DISPLAY environment variable for the graphical environment
+export DISPLAY=:0
 
-```bash
-# For windows
-$ npm run build:win
+# Change to the project directory
+cd /home/pi/mikes-smarter-mirror
 
-# For macOS
-$ npm run build:mac
+# Use `su -l` to run the command as the `pi` user in a login shell
+sudo -u pi -i <<'EOF'
+export DISPLAY=:0
+/home/pi/.bun/bin/bun run start:prod >> /home/pi/mirror.log 2>&1 &
+EOF
 
-# For Linux
-$ npm run build:linux
+# Print success message to log
+echo "Smart mirror application started successfully at $(date)" >> /home/pi/mirror.log
+
+exit 0
+
 ```
