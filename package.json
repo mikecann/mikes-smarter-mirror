@@ -13,7 +13,7 @@
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
     "start": "electron-vite preview",
     "start:prod": "bun run ./scripts/prelaunch.ts",
-    "setup:prod": "chmod +x setup-smart-mirror.sh && sudo ./setup-smart-mirror.sh",
+    "setup:prod": "chmod +x setup-rc-local.sh && sudo ./setup-rc-local.sh",
     "dev": "electron-vite dev",
     "build": "npm run typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
