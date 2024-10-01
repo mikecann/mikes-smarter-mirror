@@ -6,11 +6,11 @@ SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}.service"
 PROJECT_DIR="/home/pi/mikes-smarter-mirror"
 USER="pi"
 
-# Check if `bun` is installed and get its location
-BUN_PATH=$(command -v bun)
+# Get Bun's location using the `pi` user environment
+BUN_PATH=$(sudo -u ${USER} command -v bun)
 
 if [ -z "$BUN_PATH" ]; then
-  echo "[ERROR] Bun is not installed or not available in the PATH. Please install Bun first and ensure it is accessible."
+  echo "[ERROR] Bun is not installed or not available in the PATH for the user ${USER}. Please install Bun first and ensure it is accessible."
   exit 1
 else
   echo "[INFO] Found Bun at: ${BUN_PATH}"
@@ -37,7 +37,7 @@ StandardError=inherit
 Restart=on-failure
 User=${USER}
 Environment=NODE_ENV=production
-Environment=BUN_INSTALL=${HOME}/.bun
+Environment=BUN_INSTALL=/home/pi/.bun
 
 [Install]
 WantedBy=multi-user.target
