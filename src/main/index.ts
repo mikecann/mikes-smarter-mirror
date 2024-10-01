@@ -4,12 +4,18 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
 function createWindow(): void {
+  // Check if the app was launched with the `--fullscreen` flag
+  const isFullscreen = process.argv.includes('--fullscreen')
+
+  console.log(`[INFO] Starting the app in ${isFullscreen ? 'fullscreen' : 'windowed'} mode...`)
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
     show: false,
     autoHideMenuBar: true,
+    fullscreen: isFullscreen,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),

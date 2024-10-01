@@ -35,7 +35,7 @@ try {
 
   // Step 3: Launch the Electron app from the root directory
   console.log(`[INFO] Launching the Electron app from: ${projectRoot}`)
-  await $`electron-vite preview .`.cwd(projectRoot)
+  await $`electron-vite preview . -- --fullscreen`.cwd(projectRoot)
 } catch (error) {
   console.error(`[ERROR] Failed to complete the pre-launch process: ${(error as Error).message}`)
   process.exit(1) // Exit with an error code
