@@ -2,7 +2,7 @@
 
 ## Setup
 
-.
+..
 
 set `/etc/rc.local` to:
 
