@@ -27,7 +27,7 @@ function App(): JSX.Element {
         }}
       >
         <Box style={{ position: 'absolute', top: '0px', right: '0px', height: '100%' }}>
-          {/* <JoshieVids /> */}
+          <JoshieVids />
         </Box>
         <Box style={{ position: 'absolute', top: '20px', left: '20px' }}>
           <Clock />
@@ -39,7 +39,7 @@ function App(): JSX.Element {
           {/* <AutoUpdater /> */}
         </Box>
       </Box>
-      <div className="actions">
+      {/* <div className="actions">
         <div className="action">
           <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
             Documentation
@@ -51,7 +51,7 @@ function App(): JSX.Element {
           </a>
         </div>
       </div>
-      <Versions></Versions>
+      <Versions></Versions> */}
     </>
   )
 }
