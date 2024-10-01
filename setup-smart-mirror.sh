@@ -37,6 +37,8 @@ StandardOutput=inherit
 StandardError=inherit
 Restart=on-failure
 User=${USER}
+# Add Bun to the PATH and set necessary environment variables
+Environment=PATH=/home/pi/.bun/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 Environment=NODE_ENV=production
 Environment=BUN_INSTALL=/home/pi/.bun
 
