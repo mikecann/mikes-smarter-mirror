@@ -1,5 +1,7 @@
 # mikes-smarter-mirror
 
+## Setup
+
 set `/etc/rc.local` to:
 
 ```
