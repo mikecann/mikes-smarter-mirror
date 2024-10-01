@@ -88,7 +88,7 @@ try {
   await checkAndUpdateIfNeeded()
   launchElectronApp() // Launch the app in the background
   // Start periodic update checks
-  await startPeriodicUpdateCheck(10 * 1000)
+  await startPeriodicUpdateCheck(60 * 1000)
 } catch (error) {
   console.error(`[ERROR] Failed to complete the pre-launch process: ${(error as Error).message}`)
   process.exit(1) // Exit with an error code
