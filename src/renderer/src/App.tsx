@@ -23,7 +23,7 @@ function App(): JSX.Element {
           <Clock />
         </Box>
         <Box style={{ position: 'absolute', top: '140px', left: '20px', width: "500px", height: "400px" }}>
-          <BattleTabsDash />
+          {/* <BattleTabsDash /> */}
         </Box>
         <Box style={{ position: 'absolute', bottom: '00px', left: '00px' }}>
           <Weather />
