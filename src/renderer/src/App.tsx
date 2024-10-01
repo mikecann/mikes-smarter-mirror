@@ -1,22 +1,12 @@
-import Versions from './components/Versions'
 import { Box } from './components/Box'
 import { JoshieVids } from './plugins/joshie-vids/JoshieVids'
 import { Clock } from './plugins/clock/Clock'
 import { Weather } from './plugins/weather/Weather'
+import { BattleTabsDash } from './plugins/battletabs-dash/BattleTabsDash'
 
 function App(): JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
-
   return (
     <>
-      {/* <div className="creator">Powered by electron-vite</div>
-      <div className="text">
-        Build an Electron app with <span className="react">React</span>
-        &nbsp;and <span className="ts">TypeScript</span>
-      </div>
-      <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
-      </p> */}
       <Box
         style={{
           position: 'relative',
@@ -32,26 +22,15 @@ function App(): JSX.Element {
         <Box style={{ position: 'absolute', top: '20px', left: '20px' }}>
           <Clock />
         </Box>
+        <Box style={{ position: 'absolute', top: '140px', left: '20px', width: "500px", height: "400px" }}>
+          <BattleTabsDash />
+        </Box>
         <Box style={{ position: 'absolute', bottom: '00px', left: '00px' }}>
           <Weather />
         </Box>
         <Box style={{ position: 'absolute', top: '20px', right: '20px' }}>
-          {/* <AutoUpdater /> */}
         </Box>
       </Box>
-      {/* <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
-        </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
-        </div>
-      </div>
-      <Versions></Versions> */}
     </>
   )
 }
