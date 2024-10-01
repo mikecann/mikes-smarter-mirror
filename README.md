@@ -13,15 +13,13 @@ sleep 10
 
 # Set the DISPLAY environment variable for the graphical environment
 export DISPLAY=:0
+echo "DISPLAY is set to $DISPLAY" >> /home/pi/mirror.log
 
 # Change to the project directory
 cd /home/pi/mikes-smarter-mirror
 
-# Use `su -l` to run the command as the `pi` user in a login shell
-sudo -u pi -i <<'EOF'
-export DISPLAY=:0
-/home/pi/.bun/bin/bun run start:prod >> /home/pi/mirror.log 2>&1 &
-EOF
+# Use sudo -u pi -i to run the command as the pi user in a login shell
+sudo -u pi /home/pi/.bun/bin/bun run ./scripts/prelaunch.ts >> /home/pi/mirror.log 2>&1 &
 
 # Print success message to log
 echo "Smart mirror application started successfully at $(date)" >> /home/pi/mirror.log
