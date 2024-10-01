@@ -20,17 +20,19 @@ if [ ! -f "${RC_LOCAL_FILE}.bak" ]; then
   sudo cp $RC_LOCAL_FILE ${RC_LOCAL_FILE}.bak
 fi
 
-# Ensure /etc/rc.local has the proper shebang line and permissions
+# Ensure /etc/rc.local has the proper shebang line
 echo "[INFO] Ensuring /etc/rc.local has the proper shebang line and permissions..."
-sudo bash -c "grep -q '^#!/bin/bash' $RC_LOCAL_FILE || echo '#!/bin/bash' > $RC_LOCAL_FILE"
+sudo bash -c "grep -q '^#!/bin/bash' $RC_LOCAL_FILE || echo '#!/bin/bash' | sudo tee $RC_LOCAL_FILE"
 
 # Add the startup command to /etc/rc.local if not already present
 echo "[INFO] Modifying /etc/rc.local to add the startup command..."
-sudo bash -c "grep -q 'bun run start:prod' $RC_LOCAL_FILE || sed -i -e '$i \\
-# Run Mike\'s Smart Mirror project at startup\\
-cd $PROJECT_DIR\\
-su -c \"$BUN_PATH run start:prod\" pi > $LOG_FILE 2>&1 &\\
-' $RC_LOCAL_FILE"
+if ! grep -q 'bun run start:prod' $RC_LOCAL_FILE; then
+  sudo bash -c "echo '
+# Run Mike\'s Smart Mirror project at startup
+cd $PROJECT_DIR
+su -c \"$BUN_PATH run start:prod\" pi > $LOG_FILE 2>&1 &
+' >> $RC_LOCAL_FILE"
+fi
 
 # Ensure /etc/rc.local ends with exit 0
 if ! tail -n 1 $RC_LOCAL_FILE | grep -q "^exit 0"; then
