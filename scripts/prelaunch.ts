@@ -6,12 +6,12 @@ const projectRoot = resolve(__dirname, '..')
 
 console.log(`[INFO] Starting pre-launch update process from: ${projectRoot}`)
 
+// Function to get the current status of the Git repository
 const getGitStatus = async () => {
   console.log(`[INFO] Fetching latest changes from Git in directory: ${projectRoot}`)
   const fetchResult = await $`git fetch --verbose`.cwd(projectRoot).text()
   console.log(`[INFO] Fetch result: ${fetchResult}`)
 
-  // Step 2: Check the status of the repository
   console.log(`[INFO] Checking Git status...`)
   const gitStatus = await $`git status -uno`.cwd(projectRoot).text()
   console.log(`[INFO] Git status output:\n${gitStatus}`)
@@ -19,41 +19,71 @@ const getGitStatus = async () => {
   return gitStatus
 }
 
+// Function to determine if the local branch is behind the remote
 const isBranchBehind = (status: string) => {
   return status.includes('Your branch is behind')
 }
 
+// Function to pull the latest Git changes and install dependencies using Bun
 const pullGitAndInstallDependencies = async () => {
-  // Pull the latest changes from the remote repository
   console.log(`[INFO] Pulling the latest changes from the remote repository...`)
   const pullResult = await $`git pull`.cwd(projectRoot).text()
   console.log(`[INFO] Pull result: ${pullResult}`)
 
-  // Install the dependencies using Bun
   console.log(`[INFO] Installing dependencies using Bun...`)
   const installResult = await $`bun install`.cwd(projectRoot).text()
   console.log(`[INFO] Bun install result: ${installResult}`)
 }
 
+// Function to check for updates and update if needed
 const checkAndUpdateIfNeeded = async () => {
-  // Check for updates and update if needed
   console.log(`[INFO] Checking for updates and updating if needed...`)
-  // Step 1: Fetch the latest changes from Git
   const gitStatus = await getGitStatus()
-
   if (isBranchBehind(gitStatus)) await pullGitAndInstallDependencies()
-  else console.log(`[INFO] No updates found.`)
+  console.log(`[INFO] No updates found.`)
 }
 
-const launchElectronApp = async () => {
-  // Step 3: Launch the Electron app from the root directory
+// Function to launch the Electron app without blocking the main flow
+const launchElectronApp = () => {
   console.log(`[INFO] Launching the Electron app from: ${projectRoot}`)
-  await $`bun electron-vite preview . -- --fullscreen`.cwd(projectRoot)
+  // Launch Electron as a background process without blocking
+  const process = $`bun electron-vite preview . -- --fullscreen`.cwd(projectRoot)
+  process
+    .then(() => console.log(`[INFO] Electron app launched successfully.`))
+    .catch((err) => console.error(`[ERROR] Failed to launch Electron app: ${err.message}`))
 }
 
+// Function to stop the currently running Electron app
+const stopElectronApp = async () => {
+  console.log(`[INFO] Stopping the currently running Electron app...`)
+  await $`pkill -f electron`.cwd(projectRoot)
+  console.log(`[INFO] Electron app stopped successfully.`)
+}
+
+// Function to periodically check for updates and restart the app if needed
+const startPeriodicUpdateCheck = async (interval: number) => {
+  console.log(`[INFO] Starting periodic update checks every ${interval / 1000} seconds...`)
+  setInterval(async () => {
+    console.log(`[INFO] Periodic update check initiated...`)
+    const status = await getGitStatus()
+    if (!isBranchBehind(status)) {
+      console.log(`[INFO] No updates found, skipping...`)
+      return
+    }
+
+    // First kill the currently running app as the bun install might have issues if we dont
+    await stopElectronApp()
+    await pullGitAndInstallDependencies()
+    launchElectronApp() // Launch the app in the background
+  }, interval)
+}
+
+// Start the initial process
 try {
   await checkAndUpdateIfNeeded()
-  await launchElectronApp()
+  launchElectronApp() // Launch the app in the background
+  // Start periodic update checks
+  await startPeriodicUpdateCheck(10 * 1000)
 } catch (error) {
   console.error(`[ERROR] Failed to complete the pre-launch process: ${(error as Error).message}`)
   process.exit(1) // Exit with an error code
